@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import React from "react";
 import LenisProvider from "@/components/Lenis";
+import Header from "@/components/Header";
 
 const neueMontreal = localFont({
     src: "../../public/fonts/ppneuemontreal.otf",
@@ -30,6 +31,7 @@ export default function RootLayout({
         <html lang="en" className={`${neueMontreal.variable} ${editorialNew.variable}`}>
         <body>
             <LenisProvider>
+                <Header />
                 {children}
             </LenisProvider>
         </body>

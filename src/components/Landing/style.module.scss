@@ -4,7 +4,8 @@ $font-serif: var(--font-serif), serif;
 .landing {
   position: relative;
   z-index: 1;
-  height: 170vh;
+  height: auto;
+  min-height: 100vh;
   width: 100vw;
   background: #ffffff;
   display: flex;
@@ -18,7 +19,6 @@ $font-serif: var(--font-serif), serif;
     flex-shrink: 0;
     margin-top: 150px;
     padding-top: 6vh;
-    padding-bottom: 0.5rem;
     height: 50vh;
     h1 {
       font-family: $font-sans;
@@ -41,6 +41,7 @@ $font-serif: var(--font-serif), serif;
     height: 100vh;
     min-height: 0;
     overflow: hidden;
+    margin-top: -70px;
     video {
       width: 100%;
       height: 100%;
