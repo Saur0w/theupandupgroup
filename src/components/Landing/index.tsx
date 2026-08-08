@@ -12,7 +12,12 @@ export default function Landing() {
 
     return (
         <section className={styles.landing} ref={landingRef}>
+            <div className={styles.text}>
+                <h1>Creativity <br />Elevates<br /><span>Everything</span></h1>
+            </div>
+            <div className={styles.videoWrapper}>
 
+            </div>
         </section>
     )
 }

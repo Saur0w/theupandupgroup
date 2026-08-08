@@ -1,7 +1,33 @@
+$font-sans: var(--font-sans), sans-serif;
+$font-serif: var(--font-serif), serif;
+
 .landing {
   position: relative;
   z-index: 1;
-  height: 100vh;
+  height: 150vh;
   width: 100vw;
   background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3em;
+  .text {
+    position: absolute;
+    top: 15%;
+    h1 {
+      font-family: $font-sans;
+      font-size: 9em;
+      text-align: center;
+      line-height: .8;
+      text-transform: uppercase;
+      color: #383838;
+      font-weight: 500;
+      span {
+        font-family: $font-serif;
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+      }
+    }
+  }
 }
