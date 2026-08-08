@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import React from "react";
+import LenisProvider from "@/components/Lenis";
 
 const neueMontreal = localFont({
     src: "../../public/fonts/ppneuemontreal.otf",
@@ -27,7 +28,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${neueMontreal.variable} ${editorialNew.variable}`}>
-        <body>{children}</body>
+        <body>
+            <LenisProvider>
+                {children}
+            </LenisProvider>
+        </body>
         </html>
     );
 }

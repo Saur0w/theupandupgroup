@@ -16,7 +16,13 @@ export default function Landing() {
                 <h1>Creativity <br />Elevates<br /><span>Everything</span></h1>
             </div>
             <div className={styles.videoWrapper}>
-
+                <video
+                    src="https://cdn.jsdelivr.net/gh/geoffdawes/upupdev/upup.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                />
             </div>
         </section>
     )
