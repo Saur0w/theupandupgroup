@@ -26,11 +26,13 @@ export default function Header() {
 
         tl
             .to(headerRef.current, {
-                width: "350px"
-            })
+                width: "320px",
+                ease: "none"
+            }, 0)
             .to(navRef.current, {
                 opacity: 0,
                 width: 0,
+                pointerEvents: "none",
                 ease: "none",
             }, 0)
             .to(logoRef.current, {
@@ -58,10 +60,18 @@ export default function Header() {
                 </div>
 
                 <nav ref={navRef}>
-                    <Link href="/about">About</Link>
-                    <Link href="/solutions">Solutions</Link>
-                    <Link href="/work">Work</Link>
-                    <Link href="/thought">Thought</Link>
+                    <Link href="/about">
+                        <PerspectiveText label="About" />
+                    </Link>
+                    <Link href="/solutions">
+                        <PerspectiveText label="Solutions" />
+                    </Link>
+                    <Link href="/work">
+                        <PerspectiveText label="Work" />
+                    </Link>
+                    <Link href="/thought">
+                        <PerspectiveText label="Thought" />
+                    </Link>
                 </nav>
 
                 <div className={styles.burger}>
@@ -73,5 +83,18 @@ export default function Header() {
                 </div>
             </div>
         </header>
+    );
+}
+
+interface PerspectiveProps {
+    label: string;
+}
+
+function PerspectiveText({ label }: PerspectiveProps) {
+    return (
+        <div className={styles.perspectiveText}>
+            <span>{label}</span>
+            <span>{label}</span>
+        </div>
     );
 }

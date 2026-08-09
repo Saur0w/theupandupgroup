@@ -8,12 +8,9 @@
   margin: 0 auto;
   height: 60px;
   width: 420px;
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 0 1.75rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   .body {
     height: 100%;
@@ -21,7 +18,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    gap: 1.5rem;
 
     .logo {
       display: flex;
@@ -40,8 +36,6 @@
     }
 
     nav {
-      position: absolute;
-      left: 2rem;
       display: flex;
       align-items: center;
       gap: 1.5rem;
@@ -54,12 +48,7 @@
         font-weight: 500;
         color: #343434;
         text-decoration: none;
-        transition: opacity 0.2s ease;
         letter-spacing: 0.04em;
-
-        &:hover {
-          opacity: 0.6;
-        }
       }
     }
 
@@ -68,6 +57,7 @@
       align-items: center;
       flex-shrink: 0;
       margin-left: auto;
+      margin-right: 0.5em;
 
       button {
         background: transparent;
@@ -76,14 +66,62 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 3.5px;
+        gap: 2.5px;
 
         span {
           display: block;
-          width: 50px;
-          height: 0.08px;
+          width: 45px;
+          height: 0.8px;
           background: #353535;
           opacity: 0.3;
+        }
+      }
+    }
+  }
+
+  .perspectiveText {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    perspective: 600px;
+    transform-style: preserve-3d;
+    height: 1.2em;
+
+    span {
+      margin: 0;
+      line-height: 1.2em;
+      will-change: transform, opacity;
+      transition: none;
+
+      &:nth-child(1) {
+        transform: translate3d(0, 0, 0) rotateX(0deg);
+        opacity: 1;
+      }
+
+      &:nth-child(2) {
+        position: absolute;
+        transform: translate3d(0, 100%, 0) rotateX(-90deg);
+        transform-origin: top center;
+        opacity: 0;
+      }
+    }
+
+    &:hover {
+      span {
+        transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1),
+        opacity 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+
+        &:nth-child(1) {
+          transform: translate3d(0, -100%, 0) rotateX(90deg);
+          transform-origin: bottom center;
+          opacity: 0;
+        }
+
+        &:nth-child(2) {
+          transform: translate3d(0, 0, 0) rotateX(0deg);
+          opacity: 1;
         }
       }
     }
