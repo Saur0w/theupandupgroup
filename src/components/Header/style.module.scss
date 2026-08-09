@@ -4,37 +4,70 @@
   left: 0;
   right: 0;
   z-index: 20;
-  background: #fff;
+  background: #ffffff;
   margin: 0 auto;
   height: 60px;
-  min-width: 320px;
-  width: fit-content;
+  width: 420px;
   border-radius: 10px;
-  padding: 0 2rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  padding: 0 1.75rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .body {
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 2.25rem;
-    nav {
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+
+    .logo {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+
+      svg {
+        width: 24px;
+        height: 26px;
+        color: #2e2e2e;
+        flex-shrink: 0;
+      }
+    }
+
+    nav {
+      position: absolute;
+      left: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      overflow: hidden;
+      white-space: nowrap;
 
       a {
         font-family: var(--font-sans, system-ui, sans-serif), serif;
-        font-size: 0.95rem;
+        font-size: 14px;
         font-weight: 500;
-        color: #0d1b2a;
+        color: #343434;
         text-decoration: none;
+        transition: opacity 0.2s ease;
+        letter-spacing: 0.04em;
+
+        &:hover {
+          opacity: 0.6;
+        }
       }
     }
 
     .burger {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
+      margin-left: auto;
 
       button {
         background: transparent;
@@ -43,13 +76,14 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 3.5px;
 
         span {
           display: block;
-          width: 26px;
-          height: 1px;
+          width: 50px;
+          height: 0.08px;
           background: #353535;
+          opacity: 0.3;
         }
       }
     }
