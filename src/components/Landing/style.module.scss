@@ -28,10 +28,21 @@ $font-serif: var(--font-serif), serif;
       text-transform: uppercase;
       color: #383838;
       font-weight: 500;
-      span {
-        font-family: $font-serif;
-        line-height: 1.2;
-        letter-spacing: -0.03em;
+      .wordMask {
+        display: inline-grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        overflow: hidden;
+        vertical-align: bottom;
+        height: 1em;
+        .word {
+          grid-area: 1/1;
+          font-family: $font-serif;
+          line-height: 1.2;
+          letter-spacing: -0.03em;
+          display: block;
+          will-change: transform;
+        }
       }
     }
   }
