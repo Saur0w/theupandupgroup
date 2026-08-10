@@ -15,11 +15,8 @@ export default function Header() {
     const navRef = useRef<HTMLElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
     const [isActive, setIsActive] = useState(false);
-    const burgerRef = useRef<HTMLDivElement>(null);
-    const closeIconRef = useRef<HTMLButtonElement>(null);
 
-    const isFirstRender = useRef(true);
-
+    // Scroll trigger animation to collapse header on scroll
     useGSAP(() => {
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -48,72 +45,6 @@ export default function Header() {
             }, 0);
 
     }, { scope: headerRef });
-
-    useGSAP(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-
-        const tl = gsap.timeline();
-
-        if (isActive) {
-            tl.to(headerRef.current, {
-                scale: 0.75,
-                opacity: 0,
-                duration: 0.15,
-                ease: "power2.in"
-            })
-
-                .set(headerRef.current, {
-                    width: "350px",
-                })
-                .set([logoRef.current, navRef.current, burgerRef.current], {
-                    display: "none"
-                })
-                .set(closeIconRef.current, {
-                    display: "flex",
-                    opacity: 0,
-                })
-
-                .to({}, { duration: 0.5 })
-
-                .to(headerRef.current, {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 1,
-                    ease: "back.out(1.7)",
-                })
-
-                .to(closeIconRef.current, {
-                    opacity: 1,
-                    duration: 0.25,
-                    ease: "power2.out"
-                }, "-=0.15");
-        } else {
-            tl.to(headerRef.current, {
-                scale: 0.75,
-                opacity: 0,
-                duration: 0.15,
-                ease: "power2.in"
-            })
-
-                .set(closeIconRef.current, {
-                    display: "none"
-                })
-
-                .set([logoRef.current, navRef.current, burgerRef.current], { display: "flex" })
-                .set(headerRef.current, { clearProps: "width" })
-
-                .to(headerRef.current, {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.3,
-                    ease: "back.out(1.5)",
-                });
-        }
-
-    }, { dependencies: [isActive], scope: headerRef })
 
     return (
         <>
@@ -147,27 +78,16 @@ export default function Header() {
                         </Link>
                     </nav>
 
-                    <div className={styles.burger} ref={burgerRef}>
+                    <div className={styles.burger}>
                         <button
                             aria-label="Toggle menu"
                             onClick={() => setIsActive(!isActive)}
-
                         >
                             <span></span>
                             <span></span>
                             <span></span>
                         </button>
                     </div>
-
-                    <button
-                        ref={closeIconRef}
-                        className={styles.closeBtn}
-                        onClick={() => setIsActive(false)}
-                        aria-label="Close menu"
-                    >
-                        <span></span>
-                        <span></span>
-                    </button>
                 </div>
             </header>
             <Navbar isActive={isActive} setIsActive={setIsActive} />
