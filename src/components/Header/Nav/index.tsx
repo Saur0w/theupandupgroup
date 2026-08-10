@@ -240,6 +240,9 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
                                 handleMouseEnter(link.img);
                                 handleLinksEnter();
                             }}
+                            onMouseLeave={() => {
+                                pillOpacitySetter.current?.(0);
+                            }}
                         >
                             <Link
                                 href={link.href}
