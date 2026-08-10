@@ -24,8 +24,10 @@ $font-sans: var(--font-sans, system-ui, sans-serif);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    pointer-events: none;
 
     .pillBtn {
+      pointer-events: auto;
       background: #ffffff;
       border: none;
       padding: 0.6rem 1.4rem;

@@ -230,14 +230,16 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
                     className={styles.navLinks}
                     ref={linksRef}
                     onMouseMove={handleMouseMove}
-                    onMouseEnter={handleLinksEnter}
                     onMouseLeave={handleLinksLeave}
                 >
                     {links.map((link, index) => (
                         <div
                             key={index}
                             className={styles.linkContainer}
-                            onMouseEnter={() => handleMouseEnter(link.img)}
+                            onMouseEnter={() => {
+                                handleMouseEnter(link.img);
+                                handleLinksEnter();
+                            }}
                         >
                             <Link
                                 href={link.href}
