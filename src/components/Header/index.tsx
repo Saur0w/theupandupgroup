@@ -16,7 +16,6 @@ export default function Header() {
     const logoRef = useRef<HTMLDivElement>(null);
     const [isActive, setIsActive] = useState(false);
 
-    // Scroll trigger animation to collapse header on scroll
     useGSAP(() => {
         const tl = gsap.timeline({
             scrollTrigger: {

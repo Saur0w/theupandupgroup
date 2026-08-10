@@ -166,9 +166,8 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.6,
-                        stagger: 0.05,
-                        ease: "power3.out",
+                        duration: 0.5,
+                        ease: "power2.out",
                     },
                     "-=0.5"
                 );
@@ -176,31 +175,51 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
 
             tl.fromTo(
                 imageRef.current,
-                { scale: 1.08, opacity: 0 },
+                { y: 500, opacity: 0 },
                 {
-                    scale: 1,
+                    y: 0,
                     opacity: 1,
                     duration: 0.8,
-                    ease: "power3.out",
+                    ease: "power2.out",
                 },
-                "-=0.6"
+                "-=0.5"
             );
         } else {
             const tl = gsap.timeline();
+
+            if (linksRef.current?.children) {
+                const linkItems = Array.from(linksRef.current.children).filter(
+                    (child) => child !== pillRef.current
+                );
+                
+                tl.to(linkItems, {
+                    y: -30,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power2.in"
+                });
+            }
+
+            tl.to(imageRef.current, {
+                y: -30,
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.in"
+            }, "<");
 
             tl.to(closeBtnRef.current, {
                 opacity: 0,
                 duration: 0.2,
                 ease: "power2.in"
-            })
+            }, "<")
                 .set(navRef.current, {
                     top: 0,
                     bottom: "auto",
                 })
                 .to(navRef.current, {
                     height: "0vh",
-                    duration: 0.65,
-                    ease: "power4.inOut",
+                    duration: 0.3,
+                    ease: "power3.inOut",
                     onComplete: () => {
                         gsap.set(navRef.current, {
                             bottom: 0,
