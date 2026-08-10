@@ -156,8 +156,12 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
                 }, "-=0.3");
 
             if (linksRef.current?.children) {
+                const linkItems = Array.from(linksRef.current.children).filter(
+                    (child) => child !== pillRef.current
+                );
+
                 tl.fromTo(
-                    Array.from(linksRef.current.children),
+                    linkItems,
                     { y: 30, opacity: 0 },
                     {
                         y: 0,
@@ -204,6 +208,7 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
                             opacity: 0,
                             pointerEvents: "none"
                         });
+                        if (pillRef.current) gsap.set(pillRef.current, { opacity: 0 });
                     }
                 });
         }
