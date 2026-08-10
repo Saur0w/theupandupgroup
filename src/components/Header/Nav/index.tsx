@@ -3,7 +3,7 @@
 import styles from "./style.module.scss";
 import Link from "next/link";
 import gsap from "gsap";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 
@@ -49,12 +49,20 @@ const links = [
     },
 ];
 
+const PILL_HEIGHT = 50;
+
 export default function Nav({ isActive, setIsActive }: NavProps) {
     const navRef = useRef<HTMLElement>(null);
     const linksRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
     const closeBtnRef = useRef<HTMLElement>(null);
+    const pillRef = useRef<HTMLDivElement>(null);
     const isFirstRender = useRef(true);
+
+    // quickTo setters — updating these on every mousemove is what makes
+    // this smooth instead of thrashing layout with inline `top` styles
+    const pillYSetter = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+    const pillOpacitySetter = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
     const [activeImage, setActiveImage] = useState(defaultImage);
 
@@ -74,9 +82,45 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
         });
     };
 
-    const handleMouseLeave = () => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!linksRef.current || !pillYSetter.current) return;
+
+        const rect = linksRef.current.getBoundingClientRect();
+        const relativeY = e.clientY - rect.top;
+
+        // Clamp so the pill can never be pushed above/below the links
+        // container — this is what let it reach "About Us" (the top link)
+        // instead of clipping under .navbar's overflow: hidden.
+        const maxY = Math.max(rect.height - PILL_HEIGHT, 0);
+        const clampedY = Math.min(Math.max(relativeY - PILL_HEIGHT / 2, 0), maxY);
+
+        pillYSetter.current(clampedY);
+    };
+
+    const handleLinksEnter = () => {
+        pillOpacitySetter.current?.(1);
+    };
+
+    const handleLinksLeave = () => {
+        pillOpacitySetter.current?.(0);
         handleMouseEnter(defaultImage);
     };
+
+    useGSAP(() => {
+        if (!pillRef.current) return;
+
+        gsap.set(pillRef.current, { xPercent: -50, opacity: 0 });
+
+        pillYSetter.current = gsap.quickTo(pillRef.current, "y", {
+            duration: 0.12,
+            ease: "power3.out",
+        });
+
+        pillOpacitySetter.current = gsap.quickTo(pillRef.current, "opacity", {
+            duration: 0.2,
+            ease: "power2.out",
+        });
+    }, []);
 
     useGSAP(() => {
         if (isFirstRender.current) {
@@ -182,13 +226,18 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
             </div>
 
             <div className={styles.upperSection}>
-                <div className={styles.navLinks} ref={linksRef}>
+                <div
+                    className={styles.navLinks}
+                    ref={linksRef}
+                    onMouseMove={handleMouseMove}
+                    onMouseEnter={handleLinksEnter}
+                    onMouseLeave={handleLinksLeave}
+                >
                     {links.map((link, index) => (
                         <div
                             key={index}
                             className={styles.linkContainer}
                             onMouseEnter={() => handleMouseEnter(link.img)}
-                            onMouseLeave={handleMouseLeave}
                         >
                             <Link
                                 href={link.href}
@@ -199,7 +248,7 @@ export default function Nav({ isActive, setIsActive }: NavProps) {
                         </div>
                     ))}
 
-                    <div className={styles.pill} />
+                    <div className={styles.pill} ref={pillRef} />
                 </div>
             </div>
 

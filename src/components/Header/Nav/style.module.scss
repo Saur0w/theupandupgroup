@@ -63,6 +63,7 @@ $font-sans: var(--font-sans, system-ui, sans-serif);
       flex-direction: column;
       align-items: center;
       gap: 0.4rem;
+      margin-top: -100px;
 
       .linkContainer {
         position: relative;
@@ -81,7 +82,6 @@ $font-sans: var(--font-sans, system-ui, sans-serif);
           padding: 0.15em 1.8em;
 
           &:hover {
-
             color: #1a1a1a;
             opacity: 1 !important;
           }
@@ -94,15 +94,15 @@ $font-sans: var(--font-sans, system-ui, sans-serif);
 
       .pill {
         position: absolute;
-        top: 0;
+        top: var(--pill-y, 0px);
         left: 50%;
-        transform: translateX(-50%);
         width: 380px;
         height: 50px;
         background: transparent;
-
+        opacity: 0;
         pointer-events: none;
         z-index: 1;
+        will-change: transform, opacity;
 
         &::before {
           content: '';
@@ -125,7 +125,7 @@ $font-sans: var(--font-sans, system-ui, sans-serif);
           left: 0;
           right: 0;
           height: 12px;
-          border-bottom: 1px solid #383f4a; 
+          border-bottom: 1px solid #383f4a;
           border-left: 1px solid #383f4a;
           border-right: 1px solid #383f4a;
           border-bottom-left-radius: 12px;
